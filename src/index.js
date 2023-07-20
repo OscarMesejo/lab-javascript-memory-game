@@ -54,6 +54,8 @@ window.addEventListener('load', (event) => {
       memoryGame.pickedCards.push(cardName);
 
       const allTurnedCards = document.querySelectorAll('.turned');
+      const pairsClickedSpan = document.getElementById('pairs-clicked');
+      const pairsGuessedSpan = document.getElementById('pairs-guessed');
 
       const turnBackNoneBlockedCards = () => {
         allTurnedCards.forEach((turnedCard) => {
@@ -69,17 +71,23 @@ window.addEventListener('load', (event) => {
         })
       }
 
+      const updateScore = () =>{
+        pairsClickedSpan.innerHTML = memoryGame.pairsClicked;
+        pairsGuessedSpan.innerHTML = memoryGame.pairsGuessed;
+      }
+
       if (memoryGame.pickedCards.length === 2) {
         if (memoryGame.checkIfPair(memoryGame.pickedCards[0], memoryGame.pickedCards[1])) {
           blockTurnedCards()
         } else {
           setTimeout(turnBackNoneBlockedCards, 500)
         }
+        updateScore()
         memoryGame.pickedCards = [];
       }
 
       console.log(memoryGame);
-      // TODO: write some code here
+      
       console.log(`Card clicked: ${card}`);
     });
   });
